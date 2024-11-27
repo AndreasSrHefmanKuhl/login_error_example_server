@@ -59,6 +59,13 @@ void main() async {
 
   app.post('/register', (Request request) async {
     final body = await request.readAsString();
+
+    if (body.isEmpty) {
+      return Response(
+        400,
+        body: jsonEncode({'message': 'Data to register with is required'}),
+      );
+    }
     final Map<String, dynamic> data = jsonDecode(body);
 
     final String? username = data['username'];
